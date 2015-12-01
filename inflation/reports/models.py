@@ -10,7 +10,7 @@ class Inflation(models.Model):
     return "{} on {}".format(self.rate, self.date)
   
   def get_absolute_url(self):
-    return "/inflation/{}/{}/".format( datetime.strftime(self.date, "%Y/%m"))
+    return "/inflation/{}/".format(datetime.strftime(self.date, "%Y/%m"))
 
 
 class Unemployment(models.Model):
@@ -21,7 +21,7 @@ class Unemployment(models.Model):
     return "{} on {}".format(self.rate, self.date)
   
   def get_absolute_url(self):
-    return "/unemployment/{}".format(self.date)
+    return "/unemployment/{}".format(datetime.strftime(self.date, "%Y/%m"))
 
 class Interest(models.Model):
   rate = models.FloatField(null=True)
@@ -31,4 +31,4 @@ class Interest(models.Model):
     return "{} on {}".format(self.rate, self.date)
   
   def get_absolute_url(self):
-    return "/interest/{}".format(self.date)
+    return "/interest/{}".format(datetime.strftime(self.date, "%Y/%m"))
