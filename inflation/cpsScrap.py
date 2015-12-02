@@ -1,5 +1,7 @@
 #user/local/bin/python
 #uses python3
+import sys, os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "inflation.settings") 
 import urllib.request
 from bs4 import BeautifulSoup
 from reports.models import Unemployment
