@@ -24,7 +24,7 @@
                                                               object.date, { % endfor % }
                                                             ];
                                                             console.log(data);*/
-  unemployment_array = {{ json_data|safe }};
+  data = {{ json_data|safe }};
 
   var margin = {
       top: 20,
@@ -64,15 +64,9 @@
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  .data(data);
 
-  /*d3.json("{% url "
-    unemploymentData " %}",
-    function (error, data) {
-      data.forEach(function (d) {
-        d.date = parseDate(d.date);
-        d.rate = +d.rate;
-      });
 
       x.domain(d3.extent(data, function (d) {
         return d.date;
@@ -100,6 +94,6 @@
         .datum(data)
         .attr("class", "line")
         .attr("d", line);
-    });*/
+    ;
 </script>
 {% endblock %}
