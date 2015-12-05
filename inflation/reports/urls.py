@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.views.generic.dates import *
 from . import views
 from .models import Inflation, Unemployment, Interest
+from inflation import settings
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -11,4 +12,4 @@ urlpatterns = [
   url(r'^interest/([0-9]{4})/([0-9]{2})/$', views.interest, name='interest'),
   url(r'^unemployment$', views.unemploymentOverview, name='unemploymentOver'),
     url(r'^api/unemploymentData', views.unemploymentData, name="unemploymentData"),
-]
+] 
