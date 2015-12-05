@@ -1,30 +1,35 @@
-{% extends 'base.html' %} {% block style %}
-<style>
+{% extends 'base.html' %} 
+{% block title %}{{ stat }} - {% endblock %}
+{% block styles %}
 
-</style> {% endblock %} {% block content %}
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+{% endblock %} {% block content %}
 <div class="row">
   <div class="col-md-12">
-    <h1>hi you've reached the main index template for {{ stat }}.</h1> {% for object in objects %}
-    <p> {{ object.date }} , {{ object.rate }}</p>
-    {% endfor %}
+    <h1>hi you've reached the main index template for {{ name }}.</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <svg class="overviewChart"></svg>
   </div>
 </div>
 {% endblock %} {% block scripts %}
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript">
-  /*{ %
-                                                                for object in objects %
-                                                              }
-                                                            data = [
-                                                           { %
-                                                                if object.last %
-                                                              }
-                                                              object.date { % endif %
-                                                              }
-                                                              object.date, { % endfor % }
-                                                            ];
-                                                            console.log(data);*/
-  data = {{ json_data|safe }};
+  var data = {{json_data | safe}};
 
   var margin = {
       top: 20,
@@ -32,68 +37,69 @@
       bottom: 30,
       left: 50
     },
-    width = 960 - margin.left - margin.right,
+    width = 760 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
   var parseDate = d3.time.format("%Y-%m-%d").parse; // for dates like "2014-01-01"
   //var parseDate = d3.time.format("%Y-%m-%dT00:00:00Z").parse;  // for dates like "2014-01-01T00:00:00Z"
 
-  var x = d3.time.scale()
+  var xScale = d3.time.scale()
+    .domain(d3.extent(data, function (d) {
+      return parseDate(d.date);
+    }))
     .range([0, width]);
 
-  var y = d3.scale.linear()
-    .range([height, 0]);
+  var yScale = d3.scale.linear()
+    .range([height, 0])
+    .domain([0, d3.max(data, function (d) {
+      return d.rate;
+    })]);
 
   var xAxis = d3.svg.axis()
-    .scale(x)
+    .scale(xScale)
     .orient("bottom");
 
   var yAxis = d3.svg.axis()
-    .scale(y)
+    .scale(yScale)
     .orient("left");
 
-  var line = d3.svg.line()
+  var valueline = d3.svg.line()
     .x(function (d) {
-      return x(d.date);
+      console.log(d.date);
+      return xScale(parseDate(d.date));
     })
     .y(function (d) {
-      return y(d.rate);
+      console.log(d.rate);
+      return yScale(d.rate);
     });
-
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select(".overviewChart")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-  .data(data);
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
 
-      x.domain(d3.extent(data, function (d) {
-        return d.date;
-      }));
-      y.domain(d3.extent(data, function (d) {
-        return d.rate;
-      }));
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Unemployment Rate");
 
-      svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-      svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Play count");
-
-      svg.append("path")
-        .datum(data)
-        .attr("class", "line")
-        .attr("d", line);
-    ;
+  svg.append("path")
+    .data(data)
+    .attr("class", "line")
+    .attr("d", valueline(data));
+  function type(d) {
+    d.rate = +d.rate;
+    return d;
+  }
 </script>
 {% endblock %}
