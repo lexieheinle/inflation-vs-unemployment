@@ -1,9 +1,11 @@
 {% extends 'base.html' %} 
-{% block title %}{{ stat }} - {% endblock %}
+{% block title %}{{ name }} - {% endblock %}
 {% block styles %}
-
+body{
+  padding-top: 40px;
+}
 path { 
-    stroke: steelblue;
+    stroke: #f05f40;
     stroke-width: 2;
     fill: none;
 }
@@ -15,16 +17,21 @@ path {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+text {
+  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}
 {% endblock %} {% block content %}
+<div class="container">
 <div class="row">
   <div class="col-md-12">
-    <h1>hi you've reached the main index template for {{ name }}.</h1>
+    <h1>hi you've reached the main index template for {{ name }} rates.</h1>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <svg class="overviewChart"></svg>
   </div>
+</div>
 </div>
 {% endblock %} {% block scripts %}
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -91,7 +98,7 @@ path {
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Unemployment Rate");
+    .text("{{ name }} Rates");
 
   svg.append("path")
     .data(data)
