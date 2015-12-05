@@ -19,18 +19,17 @@ for tr in soup.find_all('tr')[1:]:
         dataRow.append(header.text)
         dataRow.append(tds[0].text)
     data.append(dataRow)
-print (data[0][0])
+print (data)
 cleanedRate = []
 cleanedDate = []
 for da in data:
-    print(da[1])
-#da[0] = eval(da[0])
-    try:
-        if int(da[0]) >= 1947:
-            dates = "{}-{}-{}".format(da[0], 1, 1)
-            cleanedDate.append(dates)
-            cleanedRate.append(eval(da[1]))
-    except ValueError:
+    print (da)
+    print (da[0])
+    if int(da[0]) >= 1947:
+        dates = "{}-{}-{}".format(da[0], 1, 1)
+        cleanedDate.append(dates)
+        cleanedRate.append(eval(da[1]))
+    else:
         pass
 print(cleanedRate)
 print(cleanedDate)
