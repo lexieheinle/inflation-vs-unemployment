@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+{% block title %}{{ name }}{% endblock %}
+{% block styles %}
+body{
+  padding-top: 40px;
+}
+path { 
+    stroke: #f05f40;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+text {
+  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}
+{% endblock %} {% block content %}
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <h1>This is how we did it.</h1>
+  </div>
+  </div>
+<div class="row">
+  <div class="col-md-6">
+      <p>The result of many, many Google searches can be viewed at the <a href="https://github.com/lexieheinle/inflation-vs-unemployment" target="_blank" title="View the github repo">inflation-vs-unemployment repo</a>.</p>
+    </div>
+    <div class="col-md-6">
+    <p>Data Sources</p>
+    <ul>
+      <li><a href="https://research.stlouisfed.org/fred2/series/DGS10/downloaddata" title="Historical Interest Rate data" target="_blank">Interest Rates</a></li>
+      <li><a href="http://www.bls.gov/cps/cpsaat01.htm" title="Labor force statistics">Unemployment Rates</a></li>
+      <li><a href="http://www.usinflationcalculator.com/inflation/historical-inflation-rates/" title="Inflation statistics" target="_blank">Inflation Rates</a></li>
+    </ul>
+  </div>
+    
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <svg class="overviewChart"></svg>
+  </div>
+</div>
+</div>
+{% endblock %} 

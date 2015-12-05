@@ -6,7 +6,9 @@ import json
 
 # Create your views here.
 def index(request):
-    return render_to_response('main.html')
+    stat = 'Index'
+    dictionaires = {'name': stat}
+    return render_to_response('main.html', dictionaires)
   
 def unemploymentData():
   data = list(Unemployment.objects.all().values())
@@ -37,6 +39,11 @@ def interestOverview(request):
     json_data = json.dumps(myList)
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
+
+def source(request):
+  stat = 'Source'
+  dictionaires = {'name': stat}
+  return render_to_response('source.html', dictionaires)
 
 def inflation(request, year, month):
     return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("inflation", year, month))
