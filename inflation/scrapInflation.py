@@ -19,23 +19,19 @@ for tr in soup.find_all('tr')[1:]:
         dataRow.append(header.text)
         dataRow.append(tds[0].text)
     data.append(dataRow)
-print (data)
 cleanedRate = []
 cleanedDate = []
 for da in data:
-    print (da)
-    print (da[0])
-    if int(da[0]) >= 1947:
-        dates = "{}-{}-{}".format(da[0], 1, 1)
-        cleanedDate.append(dates)
-        cleanedRate.append(eval(da[1]))
-    else:
+    try:
+        if int(da[0]) >= 1947:
+            dates = "{}-{}-{}".format(da[0], 1, 1)
+            cleanedDate.append(dates)
+            cleanedRate.append(eval(da[1]))
+            length = len(cleanedRate)
+            for i in range(length):
+                b, bcreated = Inflation.objects.get_or_create(rate=cleanedRate[i], date=cleanedDate[i])
+                print(b) 
+        else:
+            pass
+    except:
         pass
-print(cleanedRate)
-print(cleanedDate)
-length = len(cleanedRate)
-for i in range(length):
-  b, bcreated = Inflation.objects.get_or_create(rate=cleanedRate[i], date=cleanedDate[i])
-  print(b) 
-    
-        
