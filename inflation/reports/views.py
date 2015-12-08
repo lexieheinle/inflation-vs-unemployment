@@ -11,9 +11,6 @@ def index(request):
     dictionaires = {'name': stat}
     return render_to_response('main.html', dictionaires)
   
-def unemploymentData():
-  data = list(Unemployment.objects.all().values())
-  return JsonResponse(data, safe=False)
   
 def unemploymentOverview(request):
     stat = "Unemployment"
@@ -88,12 +85,3 @@ def source(request):
   stat = 'Source'
   dictionaires = {'name': stat}
   return render_to_response('source.html', dictionaires)
-  
-def unemployment(request, year, month):
-    return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("unemployment", year, month))
-
-def interest(request, year, month):
-    return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("interest", year, month))
-
-def inflation(request, year, month):
-    return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("inflation", year, month))
