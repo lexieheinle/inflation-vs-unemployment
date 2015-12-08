@@ -25,6 +25,15 @@ text {
 <div class="row">
   <div class="col-md-12">
     <h1>{{ name }} rates over time</h1>
+    {% if name == 'Unemployment' %}
+    <p>Unemployment rate is the number of people in the labor force who are unemployed but currently looking for employment. This rate is typically high during recessions as the high peak during the Great Recession illustrates.</p>
+    {% endif %}
+    {% if name == 'Interest' %}
+    <p>Interest rate is an amount set by the Federal Reserve on bank-to-bank loans, which has a trickle-down effect on consumer interest rates. The Federal Reserve uses this rate along with other money control methods to fight inflation. However, high interest rates can lead to high unemployment requiring economists to balance between unemployment and inflation.</p>
+    {% endif %}
+    {% if name == 'Inflation' %}
+    <p>Inflation rate is the sustained increased prices in the general level of goods and services. By creating a typical basket of consumers goods, the Consumer Price Index tracks how prices for food, energy, shelter and other services like transportation have changed monthly and yearly. High inflation devalues the dollar so the currency is able to buy less and less.</p>
+    {% endif %}
   </div>
 </div>
 <div class="row">
@@ -58,7 +67,8 @@ text {
 
   var yScale = d3.scale.linear()
     .range([height, 0])
-    .domain([0, d3.max(data, function (d) {
+    .domain([d3.min(data, function(d) {return d.rate - 1}),
+        d3.max(data, function (d) {
       return d.rate;
     })]);
 
