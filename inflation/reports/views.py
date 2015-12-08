@@ -54,7 +54,7 @@ def inflationOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
-def timeSpans(request, decadeNum):
+"""def timeSpans(request, decadeNum):
   stat = "{}s".format(decadeNum)
   startDate = datetime.date(decadeNum, 1, 1)
   endDate = datetime.date(decadeNum + 10, 1, 1)
@@ -67,7 +67,7 @@ def timeSpans(request, decadeNum):
       inflList.append(littleDict)
   json_data = json.dumps(inflList)
   dictionaires = {'name': stat, 'json_data': json_data}
-  return render_to_response('time.html', dictionaries)
+  return render_to_response('time.html', dictionaries)"""
 
 def source(request):
   stat = 'Source'
