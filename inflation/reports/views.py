@@ -65,9 +65,9 @@ def timeSpans(request, decadeNum):
       littleDict['date'] = str(object['date'])
       littleDict['rate'] = object['rate']
       inflList.append(littleDict)
-    json_data = json.dumps(inflList)
-    dictionaires = {'name': stat, 'json_data': json_data}
-    return render_to_response('time.html', dictionaries)
+  json_data = json.dumps(inflList)
+  dictionaires = {'name': stat, 'json_data': json_data}
+  return render_to_response('time.html', dictionaries)
 
 def source(request):
   stat = 'Source'
