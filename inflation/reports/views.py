@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from reports.models import Inflation, Unemployment, Interest
 from django.views.generic import ListView
 import json
-from datetime import datetime
+import datetime
 
 # Create your views here.
 def index(request):
@@ -54,7 +54,8 @@ def inflationOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
-"""def timeSpans(request, decadeNum):
+def timeSpans(request, decadeNum):
+  decadeNum = int(decadeNum)
   stat = "{}s".format(decadeNum)
   startDate = datetime.date(decadeNum, 1, 1)
   endDate = datetime.date(decadeNum + 10, 1, 1)
@@ -65,9 +66,23 @@ def inflationOverview(request):
       littleDict['date'] = str(object['date'])
       littleDict['rate'] = object['rate']
       inflList.append(littleDict)
-  json_data = json.dumps(inflList)
-  dictionaires = {'name': stat, 'json_data': json_data}
-  return render_to_response('time.html', dictionaries)"""
+  json_data_infl = json.dumps(inflList)
+  unList = []
+  for object in Unemployment.objects.filter(date__range = [startDate, endDate]).values():
+      littleDict = {}
+      littleDict['date'] = str(object['date'])
+      littleDict['rate'] = object['rate']
+      unList.append(littleDict)
+  json_data_un = json.dumps(unList)
+  intList = []
+  for object in Interest.objects.filter(date__range = [startDate, endDate]).values():
+      littleDict = {}
+      littleDict['date'] = str(object['date'])
+      littleDict['rate'] = object['rate']
+      intList.append(littleDict)
+  json_data_int = json.dumps(intList)
+  dictionaires = {'name': stat, 'json_data_infl': json_data_infl, 'json_data_un': json_data_un, 'json_data_int': json_data_int}
+  return render_to_response('time.html', dictionaires)
 
 def source(request):
   stat = 'Source'
