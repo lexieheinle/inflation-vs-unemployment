@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from reports.models import Inflation, Unemployment, Interest
 from django.views.generic import ListView
 import json
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -52,6 +53,21 @@ def inflationOverview(request):
     json_data = json.dumps(myList)
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
+  
+def timeSpans(request, decadeNum):
+  stat = "{}s".format(decadeNum)
+  startDate = datetime.date(decadeNum, 1, 1)
+  endDate = datetime.date(decadeNum + 10, 1, 1)
+  #inflationObjs = Inflation.objects.filter(date__range = [startDate, endDate])
+  inflList = []
+  for object in Inflation.objects.filter(date__range = [startDate, endDate]).values():
+      littleDict = {}
+      littleDict['date'] = str(object['date'])
+      littleDict['rate'] = object['rate']
+      inflList.append(littleDict)
+    json_data = json.dumps(inflList)
+    dictionaires = {'name': stat, 'json_data': json_data}
+    return render_to_response('time.html', dictionaries)
 
 def source(request):
   stat = 'Source'
