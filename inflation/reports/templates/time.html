@@ -1,113 +1,130 @@
-{% extends 'base.html' %} 
-{% block title %}{{ name }}{% endblock %}
-{% block styles %}
-body{
-  padding-top: 40px;
-}
-path { 
-    stroke: #f05f40;
-    stroke-width: 2;
-    fill: none;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-text {
-  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-}
-{% endblock %} {% block content %}
+{% extends 'base.html' %} {% block title %}{{ name }}{% endblock %} 
+{% block styles %} body{ padding-top: 40px; } path { stroke: #f05f40; stroke-width: 2; fill: none; } .axis path, .axis line { fill: none; stroke: grey; stroke-width: 1; shape-rendering: crispEdges; } text { font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; } path.interest.line { stroke: #70A79B; stroke-width: 2; fill: none; } path.inflation.line { stroke: #F3C66F; stroke-width: 2; fill: none; }{% endblock %} 
+{% block content %}
 <div class="container">
-<div class="row">
-  <div class="col-md-12">
-    <h1>The {{ name }}</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <svg class="overviewChart"></svg>
-  </div>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>The {{ name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <svg class="overviewChart"></svg>
+        </div>
+        <div class="col-md-4">
+            <p style="color:#70A79B">Interest Rates</p>
+            <p style="color:#F3C66F">Inflation Rates</p>
+            <p style="color:#f05f40">Unemployment Rates</p>
+        </div>
+    </div>
 </div>
 {% endblock %} {% block scripts %}
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript">
-  var data = {{json_data | safe}};
+    var dataInfl = {{json_data_infl | safe}};
+    var dataUn = {{json_data_un | safe}};
+    var dataInt = {{json_data_int | safe}};
+    var dataLen = dataInfl.length;
+    maxedInfl = 0;
+    for (var i = 0; i < dataLen; i++){
+        if (dataInfl[i]['rate'] > maxedInfl) {
+            maxedInfl = dataInfl[i]['rate']
+        }
+    }
+    var dataLen = dataUn.length;
+    maxedUn = 0;
+    for (var i = 0; i < dataLen; i++){
+        if (dataUn[i]['rate'] > maxedUn) {
+            maxedUn = dataUn[i]['rate']
+        }
+    }
+    maxedInt = 0;
+    for (var i = 0; i < dataLen; i++){
+        if (dataInt[i]['rate'] > maxedInt) {
+            maxedInt = dataInt[i]['rate']
+        }
+    }
+    var maxScale = Math.max(maxedInfl, maxedInt, maxedUn);
+    console.log(maxScale);
+    var margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 50
+        },
+        width = 760 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
-  var margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 50
-    },
-    width = 760 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    var parseDate = d3.time.format("%Y-%m-%d").parse; // for dates like "2014-01-01"
+    //var parseDate = d3.time.format("%Y-%m-%dT00:00:00Z").parse;  // for dates like "2014-01-01T00:00:00Z"
 
-  var parseDate = d3.time.format("%Y-%m-%d").parse; // for dates like "2014-01-01"
-  //var parseDate = d3.time.format("%Y-%m-%dT00:00:00Z").parse;  // for dates like "2014-01-01T00:00:00Z"
+    var xScale = d3.time.scale()
+        .domain(d3.extent(dataInt, function (d) {
+            return parseDate(d.date);
+        }))
+        .range([0, width]);
 
-  var xScale = d3.time.scale()
-    .domain(d3.extent(data, function (d) {
-      return parseDate(d.date);
-    }))
-    .range([0, width]);
+    var yScale = d3.scale.linear()
+        .range([height, 0])
+        .domain([d3.min(dataInfl, function (d) {
+                return d.rate - 1
+            }),
+       maxScale + 1]);
 
-  var yScale = d3.scale.linear()
-    .range([height, 0])
-    .domain([d3.min(data, function(d) {return d.rate - 1}),
-        d3.max(data, function (d) {
-      return d.rate;
-    })]);
+    var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom");
 
-  var xAxis = d3.svg.axis()
-    .scale(xScale)
-    .orient("bottom");
+    var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
 
-  var yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left");
+    var valueline = d3.svg.line()
+        .x(function (d) {
+            console.log(d.date);
+            return xScale(parseDate(d.date));
+        })
+        .y(function (d) {
+            console.log(d.rate);
+            return yScale(d.rate);
+        });
+    var svg = d3.select(".overviewChart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var valueline = d3.svg.line()
-    .x(function (d) {
-      console.log(d.date);
-      return xScale(parseDate(d.date));
-    })
-    .y(function (d) {
-      console.log(d.rate);
-      return yScale(d.rate);
-    });
-  var svg = d3.select(".overviewChart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
-  svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("{{ name }} Rates");
 
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("{{ name }} Rates");
+    svg.append("path")
+        .data(dataInt)
+        .attr("class", "interest line")
+        .attr("d", valueline(dataInt));
+    svg.append("path")
+        .data(dataInfl)
+        .attr("class", "inflation line")
+        .attr("d", valueline(dataInfl));
+    svg.append("path")
+        .data(dataUn)
+        .attr("class", "unemployment line")
+        .attr("d", valueline(dataUn));
 
-  svg.append("path")
-    .data(data)
-    .attr("class", "line")
-    .attr("d", valueline(data));
-  function type(d) {
-    d.rate = +d.rate;
-    return d;
-  }
+    function type(d) {
+        d.rate = +d.rate;
+        return d;
+    }
 </script>
 {% endblock %}
