@@ -40,16 +40,29 @@ def interestOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
 
+def inflationOverview(request):
+    stat = "Inflation"
+    objects = Inflation.objects.all()
+    myList = []
+    for object in Inflation.objects.all().values():
+      littleDict = {}
+      littleDict['date'] = str(object['date'])
+      littleDict['rate'] = object['rate']
+      myList.append(littleDict)
+    json_data = json.dumps(myList)
+    dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
+    return render_to_response('stat.html', dictionaries)
+
 def source(request):
   stat = 'Source'
   dictionaires = {'name': stat}
   return render_to_response('source.html', dictionaires)
-
-def inflation(request, year, month):
-    return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("inflation", year, month))
   
 def unemployment(request, year, month):
     return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("unemployment", year, month))
 
 def interest(request, year, month):
     return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("interest", year, month))
+
+def inflation(request, year, month):
+    return HttpResponse("Hello, world. You're {} at the {} year on {}.".format("inflation", year, month))

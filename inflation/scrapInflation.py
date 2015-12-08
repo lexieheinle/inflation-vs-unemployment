@@ -27,11 +27,13 @@ for da in data:
             dates = "{}-{}-{}".format(da[0], 1, 1)
             cleanedDate.append(dates)
             cleanedRate.append(eval(da[1]))
-            length = len(cleanedRate)
-            for i in range(length):
-                b, bcreated = Inflation.objects.get_or_create(rate=cleanedRate[i], date=cleanedDate[i])
-                print(b) 
         else:
             pass
     except:
         pass
+            
+length = len(cleanedRate)
+for i in range(length):
+    b, bcreated = Inflation.objects.get_or_create(rate=cleanedRate[i], date=cleanedDate[i])
+    print(b) 
+     

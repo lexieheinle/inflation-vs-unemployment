@@ -9,6 +9,7 @@ urlpatterns = [
   url(r'^inflation/([0-9]{4})/([0-9]{2})/$', views.inflation, name='inflation'),
   url(r'^unemployment/([0-9]{4})/([0-9]{2})/$', views.unemployment, name='unemployment'),
   url(r'^interest/([0-9]{4})/([0-9]{2})/$', views.interest, name='interest'),
+  url(r'^inflation$', views.inflationOverview, name='inflationOver'),  
   url(r'^unemployment$', views.unemploymentOverview, name='unemploymentOver'),
     url(r'^interest$', views.interestOverview, name="interestOver"),
     url(r'^sources$', views.source, name='source'),
