@@ -8,9 +8,11 @@ class Inflation(models.Model):
     date = models.DateField()
   
     def __str__(self):
+        """Return user friendly Model representation"""
         return "{0} on {1}".format(self.rate, self.date)
   
     def get_absolute_url(self):
+        """Return Model absolute url"""
         return "/inflation/{0}/".format(datetime.strftime(self.date, "%Y/%m"))
 
 
@@ -20,9 +22,11 @@ class Unemployment(models.Model):
     date = models.DateField()
   
     def __str__(self):
+        """Return user friendly Model representation"""
         return "{0} on {1}".format(self.rate, self.date)
   
     def get_absolute_url(self):
+        """Return Model absolute url"""
         return "/unemployment/{0}".format(datetime.strftime(self.date, "%Y/%m"))
 
 class Interest(models.Model):
@@ -31,7 +35,9 @@ class Interest(models.Model):
     date = models.DateField()
   
     def __str__(self):
+        """Return user friendly Model representation"""
         return "{0} on {1}".format(self.rate, self.date)
   
     def get_absolute_url(self):
+        """Return Model absolute url"""
         return "/interest/{0}".format(datetime.strftime(self.date, "%Y/%m"))

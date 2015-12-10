@@ -7,11 +7,13 @@ import datetime
 
 # Create your views here.
 def index(request):
+    '''Render index page'''
     stat = 'Index'
     dictionaires = {'name': stat}
     return render_to_response('main.html', dictionaires)
    
 def unemployment_overview(request):
+    '''Render unemployment page'''
     stat = "Unemployment"
     objects = Unemployment.objects.all()
     my_list = []
@@ -25,6 +27,7 @@ def unemployment_overview(request):
     return render_to_response('stat.html', dictionaries)
   
 def interest_overview(request):
+    '''Render interest page'''
     stat = "Interest"
     objects = Interest.objects.all()
     my_list = []
@@ -38,6 +41,7 @@ def interest_overview(request):
     return render_to_response('stat.html', dictionaries)
 
 def inflation_overview(request):
+    '''Render inflation page'''
     stat = "Inflation"
     objects = Inflation.objects.all()
     my_list = []
@@ -51,6 +55,7 @@ def inflation_overview(request):
     return render_to_response('stat.html', dictionaries)
   
 def time_spans(request, decade_num):
+  '''Render decade pages'''
   decade_num = int(decade_num)
   stat = "{0}s".format(decade_num)
   start_date = datetime.date(decade_num, 1, 1)
@@ -80,6 +85,7 @@ def time_spans(request, decade_num):
   return render_to_response('time.html', dictionaires)
 
 def source(request):
+  '''Render source page'''
   stat = 'Source'
   dictionaires = {'name': stat}
   return render_to_response('source.html', dictionaires)
