@@ -13,7 +13,7 @@ for row in reader:
   #da[0] = eval(da[0])
   if row[0][0] == '1' and row[0][1] == '/':
     date = datetime.strptime(row[0], "%m/%d/%Y")
-    cleanDated = "{}-{}-{}".format(date.year, date.month, date.day)
+    cleanDated = "{0}-{1}-{2}".format(date.year, date.month, date.day)
     print(cleanDated)
     cleanedDate.append(cleanDated)
     cleanedRate.append(eval(row[1]))

@@ -24,7 +24,7 @@ cleanedDate = []
 for da in data:
     try:
         if int(da[0]) >= 1947:
-            dates = "{}-{}-{}".format(da[0], 1, 1)
+            dates = "{0}-{1}-{2}".format(da[0], 1, 1)
             cleanedDate.append(dates)
             cleanedRate.append(eval(da[1]))
         else:
