@@ -16,7 +16,7 @@ for row in reader:
     cleanDated = "{0}-{1}-{2}".format(date.year, date.month, date.day)
     print(cleanDated)
     cleanedDate.append(cleanDated)
-    cleanedRate.append(eval(row[1]))
+    cleanedRate.append(float(row[1]))
     
 #cleaned.pop(0)
 print(cleanedRate)

@@ -26,7 +26,7 @@ for da in data:
         if int(da[0]) >= 1947:
             dates = "{0}-{1}-{2}".format(da[0], 1, 1)
             cleanedDate.append(dates)
-            cleanedRate.append(eval(da[1]))
+            cleanedRate.append(float(da[1]))
     except IndexError as e:
         print("Error: Index of Zero. Still works, though\nDetails: {0}".format(e))
             

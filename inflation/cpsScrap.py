@@ -35,7 +35,7 @@ for da in data:
         if int(da[0]) >= 1947:
           dates = "{0}-{1}-{2}".format(da[0], 1, 1)
           cleanedDate.append(dates)
-          cleanedRate.append(eval(da[-2]))
+          cleanedRate.append(float(da[-2]))
     except ValueError as e:
         print("Error: Value error. Still works, though\nDetails: {0}".format(e))
 
