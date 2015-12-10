@@ -27,10 +27,8 @@ for da in data:
             dates = "{0}-{1}-{2}".format(da[0], 1, 1)
             cleanedDate.append(dates)
             cleanedRate.append(eval(da[1]))
-        else:
-            pass
-    except:
-        pass
+    except IndexError as e:
+        print("Error: Index of Zero. Still works, though\nDetails: {0}".format(e))
             
 length = len(cleanedRate)
 for i in range(length):
