@@ -34,7 +34,7 @@ for da in data:
   #da[0] = eval(da[0])
   try:
     if int(da[0]) >= 1947:
-      dates = "{}-{}-{}".format(da[0], 1, 1)
+      dates = "{0}-{1}-{2}".format(da[0], 1, 1)
       cleanedDate.append(dates)
       cleanedRate.append(eval(da[-2]))
   except ValueError:

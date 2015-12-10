@@ -53,7 +53,7 @@ def inflationOverview(request):
   
 def timeSpans(request, decadeNum):
   decadeNum = int(decadeNum)
-  stat = "{}s".format(decadeNum)
+  stat = "{0}s".format(decadeNum)
   startDate = datetime.date(decadeNum, 1, 1)
   endDate = datetime.date(decadeNum + 10, 1, 1)
   #inflationObjs = Inflation.objects.filter(date__range = [startDate, endDate])
