@@ -15,69 +15,68 @@ def index(request):
 def unemploymentOverview(request):
     stat = "Unemployment"
     objects = Unemployment.objects.all()
-    myList = []
+    my_list = []
     for object in Unemployment.objects.all().values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      myList.append(littleDict)
-    json_data = json.dumps(myList)
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      my_list.append(little_dict)
+    json_data = json.dumps(my_list)
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
 def interestOverview(request):
     stat = "Interest"
     objects = Interest.objects.all()
-    myList = []
+    my_list = []
     for object in Interest.objects.all().values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      myList.append(littleDict)
-    json_data = json.dumps(myList)
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      my_list.append(little_dict)
+    json_data = json.dumps(my_list)
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
 
 def inflationOverview(request):
     stat = "Inflation"
     objects = Inflation.objects.all()
-    myList = []
+    my_list = []
     for object in Inflation.objects.all().values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      myList.append(littleDict)
-    json_data = json.dumps(myList)
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      my_list.append(little_dict)
+    json_data = json.dumps(my_list)
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
-def timeSpans(request, decadeNum):
-  decadeNum = int(decadeNum)
-  stat = "{0}s".format(decadeNum)
-  startDate = datetime.date(decadeNum, 1, 1)
-  endDate = datetime.date(decadeNum + 10, 1, 1)
-  #inflationObjs = Inflation.objects.filter(date__range = [startDate, endDate])
-  inflList = []
-  for object in Inflation.objects.filter(date__range = [startDate, endDate]).values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      inflList.append(littleDict)
-  json_data_infl = json.dumps(inflList)
-  unList = []
-  for object in Unemployment.objects.filter(date__range = [startDate, endDate]).values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      unList.append(littleDict)
-  json_data_un = json.dumps(unList)
-  intList = []
-  for object in Interest.objects.filter(date__range = [startDate, endDate]).values():
-      littleDict = {}
-      littleDict['date'] = str(object['date'])
-      littleDict['rate'] = object['rate']
-      intList.append(littleDict)
-  json_data_int = json.dumps(intList)
+def timeSpans(request, decade_num):
+  decade_num = int(decade_num)
+  stat = "{0}s".format(decade_num)
+  start_date = datetime.date(decade_num, 1, 1)
+  end_date = datetime.date(decade_num + 10, 1, 1)
+  infl_list = []
+  for object in Inflation.objects.filter(date__range = [start_date, end_date]).values():
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      infl_list.append(little_dict)
+  json_data_infl = json.dumps(infl_list)
+  un_list = []
+  for object in Unemployment.objects.filter(date__range = [start_date, end_date]).values():
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      un_list.append(little_dict)
+  json_data_un = json.dumps(un_list)
+  int_list = []
+  for object in Interest.objects.filter(date__range = [start_date, end_date]).values():
+      little_dict = {}
+      little_dict['date'] = str(object['date'])
+      little_dict['rate'] = object['rate']
+      int_list.append(little_dict)
+  json_data_int = json.dumps(int_list)
   dictionaires = {'name': stat, 'json_data_infl': json_data_infl, 'json_data_un': json_data_un, 'json_data_int': json_data_int}
   return render_to_response('time.html', dictionaires)
 

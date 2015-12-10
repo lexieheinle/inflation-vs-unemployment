@@ -8,7 +8,7 @@ urlpatterns = [
   url(r'^unemployment$', views.unemploymentOverview, name='unemploymentOver'),
   url(r'^interest$', views.interestOverview, name="interestOver"),
   url(r'^sources$', views.source, name='source'),
-  url(r'^decade/(?P<decadeNum>[0-9]{4})/$', views.timeSpans, name='decadeNum'),
+  url(r'^decade/(?P<decade_num>[0-9]{4})/$', views.timeSpans, name='decade_num'),
 ]
 
 
