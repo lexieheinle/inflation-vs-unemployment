@@ -10,9 +10,8 @@ def index(request):
     stat = 'Index'
     dictionaires = {'name': stat}
     return render_to_response('main.html', dictionaires)
-  
-  
-def unemploymentOverview(request):
+   
+def unemployment_overview(request):
     stat = "Unemployment"
     objects = Unemployment.objects.all()
     my_list = []
@@ -25,7 +24,7 @@ def unemploymentOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
-def interestOverview(request):
+def interest_overview(request):
     stat = "Interest"
     objects = Interest.objects.all()
     my_list = []
@@ -38,7 +37,7 @@ def interestOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
 
-def inflationOverview(request):
+def inflation_overview(request):
     stat = "Inflation"
     objects = Inflation.objects.all()
     my_list = []
@@ -51,7 +50,7 @@ def inflationOverview(request):
     dictionaries = {'name': stat, 'objects': objects, 'json_data': json_data}
     return render_to_response('stat.html', dictionaries)
   
-def timeSpans(request, decade_num):
+def time_spans(request, decade_num):
   decade_num = int(decade_num)
   stat = "{0}s".format(decade_num)
   start_date = datetime.date(decade_num, 1, 1)
