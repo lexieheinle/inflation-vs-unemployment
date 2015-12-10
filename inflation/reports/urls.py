@@ -1,6 +1,4 @@
 from django.conf.urls import url
-from django.views.generic import ListView
-from django.views.generic.dates import *
 from . import views
 from .models import Inflation, Unemployment, Interest
 from inflation import settings
