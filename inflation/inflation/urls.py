@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
-from reports.views import index
+from reports.views import Index
 
 
 urlpatterns = [
-    url(r'^$', index, name='index'),
+    url(r'^$', Index.as_view(), name='index'),
     url(r'^reports/', include('reports.urls')),
     url(r'^admin/', include(admin.site.urls)), 
 
