@@ -8,18 +8,21 @@ import datetime
 
 # Create your views here.
 class Index(BuildableTemplateView):
+    '''builds index page'''
     build_path = "index.html"
     stat = 'Index'
     queryset = {'name': stat}
     template_name = 'main.html'
     
 class Source(BuildableTemplateView):
+    '''builds source page'''
     build_path = 'source.html'
     stat = 'Source'
     queryset = {'name': stat}
     template_name = 'source.html'
     
-class Unemployment_overview(BuildableListView):
+class UnemploymentOverview(BuildableListView):
+    '''builds unemployment page'''
     template_name = "stat.html"
     queryset = []
     build_path = 'reports/unemployment.html'
@@ -35,7 +38,8 @@ class Unemployment_overview(BuildableListView):
         context['name'] = 'Unemployment'
         context['json_data'] = json_data
         return context
-class Interest_overview(BuildableListView):
+class InterestOverview(BuildableListView):
+    '''builds interest page'''
     template_name = "stat.html"
     queryset = []
     build_path = 'reports/interest.html'
@@ -51,7 +55,8 @@ class Interest_overview(BuildableListView):
         context['name'] = 'Interest'
         context['json_data'] = json_data
         return context
-class Inflation_overview(BuildableListView):
+class InflationOverview(BuildableListView):
+    '''builds inflation page'''
     template_name = "stat.html"
     queryset = []
     build_path = 'reports/inflation.html'
@@ -67,7 +72,8 @@ class Inflation_overview(BuildableListView):
         context['name'] = 'Inflation'
         context['json_data'] = json_data
         return context
-class Time_spans1970(BuildableListView):
+class TimeSpans1970(BuildableListView):
+    '''builds 1970s time page'''
     template_name = "time.html"
     queryset = []
     build_path = 'reports/decade/1970s.html'
@@ -98,13 +104,14 @@ class Time_spans1970(BuildableListView):
             little_dict['rate'] = object['rate']
             int_list.append(little_dict)
         json_data_int = json.dumps(int_list)
-        context = super(Time_spans1970, self).get_context_data()
+        context = super(TimeSpans1970, self).get_context_data()
         context['name'] = stat
         context['json_data_infl'] = json_data_infl
         context['json_data_un'] = json_data_un
         context['json_data_int'] = json_data_int
         return context
-class Time_spans1980(BuildableListView):
+class TimeSpans1980(BuildableListView):
+    '''builds 1980s time page'''
     template_name = "time.html"
     queryset = []
     build_path = 'reports/decade/1980s.html'
@@ -135,13 +142,14 @@ class Time_spans1980(BuildableListView):
             little_dict['rate'] = object['rate']
             int_list.append(little_dict)
         json_data_int = json.dumps(int_list)
-        context = super(Time_spans1980, self).get_context_data()
+        context = super(TimeSpans1980, self).get_context_data()
         context['name'] = stat
         context['json_data_infl'] = json_data_infl
         context['json_data_un'] = json_data_un
         context['json_data_int'] = json_data_int
         return context
-class Time_spans1990(BuildableListView):
+class TimeSpans1990(BuildableListView):
+    '''builds 1990s time page'''
     template_name = "time.html"
     queryset = []
     build_path = 'reports/decade/1990s.html'
@@ -172,13 +180,14 @@ class Time_spans1990(BuildableListView):
             little_dict['rate'] = object['rate']
             int_list.append(little_dict)
         json_data_int = json.dumps(int_list)
-        context = super(Time_spans1990, self).get_context_data()
+        context = super(TimeSpans1990, self).get_context_data()
         context['name'] = stat
         context['json_data_infl'] = json_data_infl
         context['json_data_un'] = json_data_un
         context['json_data_int'] = json_data_int
         return context
-class Time_spans2000(BuildableListView):
+class TimeSpans2000(BuildableListView):
+    '''builds 2000s time page'''
     template_name = "time.html"
     queryset = []
     build_path = 'reports/decade/2000s.html'
@@ -209,13 +218,14 @@ class Time_spans2000(BuildableListView):
             little_dict['rate'] = object['rate']
             int_list.append(little_dict)
         json_data_int = json.dumps(int_list)
-        context = super(Time_spans2000, self).get_context_data()
+        context = super(TimeSpans2000, self).get_context_data()
         context['name'] = stat
         context['json_data_infl'] = json_data_infl
         context['json_data_un'] = json_data_un
         context['json_data_int'] = json_data_int
         return context
-class Time_spans2010(BuildableListView):
+class TimeSpans2010(BuildableListView):
+    '''builds 2010s time page'''
     template_name = "time.html"
     queryset = []
     build_path = 'reports/decade/2010s.html'
@@ -246,7 +256,7 @@ class Time_spans2010(BuildableListView):
             little_dict['rate'] = object['rate']
             int_list.append(little_dict)
         json_data_int = json.dumps(int_list)
-        context = super(Time_spans2010, self).get_context_data()
+        context = super(TimeSpans2010, self).get_context_data()
         context['name'] = stat
         context['json_data_infl'] = json_data_infl
         context['json_data_un'] = json_data_un
