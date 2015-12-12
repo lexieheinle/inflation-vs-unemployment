@@ -27,6 +27,7 @@ class UnemploymentOverview(BuildableListView):
     queryset = []
     build_path = 'reports/unemployment.html'
     def get_context_data(self):
+        '''build page context'''
         my_list = []
         for object in Unemployment.objects.all().values():
             little_dict = {}
@@ -44,6 +45,7 @@ class InterestOverview(BuildableListView):
     queryset = []
     build_path = 'reports/interest.html'
     def get_context_data(self):
+        '''build page context'''
         my_list = []
         for object in Interest.objects.all().values():
             little_dict = {}
@@ -61,6 +63,7 @@ class InflationOverview(BuildableListView):
     queryset = []
     build_path = 'reports/inflation.html'
     def get_context_data(self):
+        '''build page context'''
         my_list = []
         for object in Inflation.objects.all().values():
             little_dict = {}
@@ -78,6 +81,7 @@ class TimeSpans1970(BuildableListView):
     queryset = []
     build_path = 'reports/decade/1970s.html'
     def get_context_data(self):
+        '''build page context'''
         decade_num = '1970'
         decade_num = int(decade_num)
         stat = "{0}s".format(decade_num)
@@ -116,6 +120,7 @@ class TimeSpans1980(BuildableListView):
     queryset = []
     build_path = 'reports/decade/1980s.html'
     def get_context_data(self):
+        '''build page context'''
         decade_num = '1980'
         decade_num = int(decade_num)
         stat = "{0}s".format(decade_num)
@@ -154,6 +159,7 @@ class TimeSpans1990(BuildableListView):
     queryset = []
     build_path = 'reports/decade/1990s.html'
     def get_context_data(self):
+        '''build page context'''
         decade_num = '1990'
         decade_num = int(decade_num)
         stat = "{0}s".format(decade_num)
@@ -192,6 +198,7 @@ class TimeSpans2000(BuildableListView):
     queryset = []
     build_path = 'reports/decade/2000s.html'
     def get_context_data(self):
+        '''build page context'''
         decade_num = '2000'
         decade_num = int(decade_num)
         stat = "{0}s".format(decade_num)
@@ -230,6 +237,7 @@ class TimeSpans2010(BuildableListView):
     queryset = []
     build_path = 'reports/decade/2010s.html'
     def get_context_data(self):
+        '''build page context'''
         decade_num = '2010'
         decade_num = int(decade_num)
         stat = "{0}s".format(decade_num)
