@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Economic data news app by Lexie Heinle and Alex Lucke">
+
+  <title>Interest | For the Love of the Money</title>
+
+    <!-- Bootstrap Core CSS -->
+   <link href= "/static/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href= "/static/admin/css/bootstrap.min.css"
+           type="text/css">
+  <link rel="shortcut icon" href="/static/admin/img/favicon.ico" type="image/x-icon">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href= "/static/admin/css/animate.min.css"  type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href= "/static/admin/css/creative.css"  type="text/css">
+
+  <style>
+
+    
+   
+body{
+  padding-top: 40px;
+}
+path { 
+    stroke: #F3C66F;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+text {
+  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}
+
+  </style>
+
+
+
+  <!-- Font Awesome icons, v4.4 -->
+ 
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">For the Love of the Money</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="/reports/unemployment">Unemployment</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/reports/interest">Interest</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/reports/inflation">Inflation</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <h1>Interest rates over time</h1>
+    
+    
+    <p>Interest rate is an amount set by the Federal Reserve on bank-to-bank loans, which has a trickle-down effect on consumer interest rates. The Federal Reserve uses this rate along with other money control methods to fight inflation. However, high interest rates can lead to high unemployment requiring economists to balance between unemployment and inflation.</p>
+    
+    
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <svg class="overviewChart"></svg>
+  </div>
+</div>
+</div>
+
+</body>
+
+<script src='/static/admin/js/jquery.js' ></script>
+  <script src= '/static/admin/js/jquery.easing.min.js'>
+</script>
+  <script src= '/static/admin/js/jquery.fittext.js' ></script>
+  <script src= '/static/admin/js/wow.min.js'></script>
+  <script src='/static/admin/js/creative.js' ></script>
+<script src='/static/admin/js/bootstrap.min.js' ></script>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+  var data = [{"date": "1962-01-01", "rate": 4.08}, {"date": "1963-01-01", "rate": 3.83}, {"date": "1964-01-01", "rate": 4.17}, {"date": "1965-01-01", "rate": 4.19}, {"date": "1966-01-01", "rate": 4.61}, {"date": "1967-01-01", "rate": 4.58}, {"date": "1968-01-01", "rate": 5.53}, {"date": "1969-01-01", "rate": 6.04}, {"date": "1970-01-01", "rate": 7.79}, {"date": "1971-01-01", "rate": 6.24}, {"date": "1972-01-01", "rate": 5.95}, {"date": "1973-01-01", "rate": 6.46}, {"date": "1974-01-01", "rate": 6.99}, {"date": "1975-01-01", "rate": 7.5}, {"date": "1976-01-01", "rate": 7.74}, {"date": "1977-01-01", "rate": 7.21}, {"date": "1978-01-01", "rate": 7.96}, {"date": "1979-01-01", "rate": 9.1}, {"date": "1980-01-01", "rate": 10.8}, {"date": "1981-01-01", "rate": 12.57}, {"date": "1982-01-01", "rate": 14.59}, {"date": "1983-01-01", "rate": 10.46}, {"date": "1984-01-01", "rate": 11.67}, {"date": "1985-01-01", "rate": 11.38}, {"date": "1986-01-01", "rate": 9.19}, {"date": "1987-01-01", "rate": 7.08}, {"date": "1988-01-01", "rate": 8.67}, {"date": "1989-01-01", "rate": 9.09}, {"date": "1990-01-01", "rate": 8.21}, {"date": "1991-01-01", "rate": 8.09}, {"date": "1992-01-01", "rate": 7.03}, {"date": "1993-01-01", "rate": 6.6}, {"date": "1994-01-01", "rate": 5.75}, {"date": "1995-01-01", "rate": 7.78}, {"date": "1996-01-01", "rate": 5.65}, {"date": "1997-01-01", "rate": 6.58}, {"date": "1998-01-01", "rate": 5.54}, {"date": "1999-01-01", "rate": 4.72}, {"date": "2000-01-01", "rate": 6.66}, {"date": "2001-01-01", "rate": 5.16}, {"date": "2002-01-01", "rate": 5.04}, {"date": "2003-01-01", "rate": 4.05}, {"date": "2004-01-01", "rate": 4.15}, {"date": "2005-01-01", "rate": 4.22}, {"date": "2006-01-01", "rate": 4.42}, {"date": "2007-01-01", "rate": 4.76}, {"date": "2008-01-01", "rate": 3.74}, {"date": "2009-01-01", "rate": 2.52}, {"date": "2010-01-01", "rate": 3.73}, {"date": "2011-01-01", "rate": 3.39}, {"date": "2012-01-01", "rate": 1.97}, {"date": "2013-01-01", "rate": 1.91}, {"date": "2014-01-01", "rate": 2.86}, {"date": "2015-01-01", "rate": 1.88}];
+
+  var margin = {
+      top: 20,
+      right: 20,
+      bottom: 30,
+      left: 50
+    },
+    width = 760 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+  var parseDate = d3.time.format("%Y-%m-%d").parse; // for dates like "2014-01-01"
+  //var parseDate = d3.time.format("%Y-%m-%dT00:00:00Z").parse;  // for dates like "2014-01-01T00:00:00Z"
+
+  var xScale = d3.time.scale()
+    .domain(d3.extent(data, function (d) {
+      return parseDate(d.date);
+    }))
+    .range([0, width]);
+
+  var yScale = d3.scale.linear()
+    .range([height, 0])
+    .domain([d3.min(data, function(d) {return d.rate - 1}),
+        d3.max(data, function (d) {
+      return d.rate;
+    })]);
+
+  var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left");
+
+  var valueline = d3.svg.line()
+    .x(function (d) {
+      console.log(d.date);
+      return xScale(parseDate(d.date));
+    })
+    .y(function (d) {
+      console.log(d.rate);
+      return yScale(d.rate);
+    });
+  var svg = d3.select(".overviewChart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Interest Rates");
+
+  svg.append("path")
+    .data(data)
+    .attr("class", "line")
+    .attr("d", valueline(data));
+  function type(d) {
+    d.rate = +d.rate;
+    return d;
+  }
+</script>
+
+
+
+
+</html>
